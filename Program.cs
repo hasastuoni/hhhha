@@ -1,24 +1,27 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab.Exercises1Sav
+namespace LI1
 {
-
     class Program
     {
         static void Main(string[] args)
         {
-            List<People> allPeople = InOutUtils.ReadPeople(@"Islaidos.csv");
-            InOutUtils.PrintPeople(allPeople);
-            int cash = TaskUtils.CountMoney(allPeople);
-            Console.WriteLine("Pinigai : {0}", cash);
-            People most = TaskUtils.MostMoney(allPeople);
-            Console.WriteLine("Daugiausiai dave: {0} {1}", most.Name, most.AmountMoney);
-
+            List<Book> allBook = InOutUtils.ReadBooks(@"Sarasas.csv");
+            InOutUtils.PrintBooks(allBook);
+            List<string> Publisher = TaskUtils.FindPublishers(allBook);
+            Console.WriteLine("Autorius:");
+            InOutUtils.PrintPublisher(Publisher);
+            Console.WriteLine();
+            int count = TaskUtils.Counter(allBook);
+            Console.WriteLine("Senesnes knygos negu 2 metai:{0}", count);
+            List<string> Authors = TaskUtils.FindAuthors(allBook);
+            InOutUtils.PrintAuthor(Authors);
+            Console.WriteLine();
+ 
         }
     }
 }

@@ -1,59 +1,60 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab.Exercises1Sav
+namespace LI1
 {
-    /// <summary>
-    /// Opens and sends information to all program, outputs the information
-    /// </summary>
     static class InOutUtils
     {
-        public static int AmountMoney { get; private set; }
-
-        public static List<People> ReadPeople(string fileName)
+        public static List<Book> ReadBooks(string fileName)
         {
-            List<People> Peoples = new List<People>();
-            string[] Lines = File.ReadAllLines(fileName, Encoding.UTF8);
+            List<Book> Books = new List<Book>();
+            string[] Lines = File.ReadAllLines(fileName, Encoding.UTF32);
             foreach (string line in Lines)
             {
                 string[] Values = line.Split(';');
-                string name = Values[0];
-                int money = int.Parse(Values[1]);
+                Int64 isbn = Int64.Parse(Values[0]);
+                string bookname = Values[1];
+                string authorsname = Values[2];
+                string booktype = Values[3];
+                string publisher = Values[4];
+                int year = int.Parse(Values[5]);
+                int pages = int.Parse(Values[6]);
 
-                People people = new People(name, money,AmountMoney);
-                Peoples.Add(people);
+                Book book = new Book(isbn, bookname, authorsname, booktype,publisher, year, pages);
+                Books.Add(book);
             }
-
-            return Peoples;
+            return Books;
         }
-        public static void PrintPeople(List<People> Peoples)
+        public static void PrintBooks(List<Book> Books)
         {
-            Console.WriteLine(new string('-', 74));
-            Console.WriteLine("| {0,-15} | {1,-25} |",
-                "Vardas", "Pinigu suma");
-            Console.WriteLine(new string('-', 74));
-            foreach (People people in Peoples)
+            Console.WriteLine(new string('-', 115));
+            Console.WriteLine("| {0,-13} | {1,-20} | {2,-20} | {3,-10} | {4,-10} | {5,-5} | {6,-5} |",
+                "ISBN", "Knygos pavadinimas", "Autorius", "Tipas","Leidykla", "Metai", "Puslapių kiekis");
+            Console.WriteLine(new string('-', 115));
+            foreach(Book book in Books)
             {
-                Console.WriteLine("| {0,-15} | {1,-25} |",
-                    people.Name, people.Money);
+                Console.WriteLine("| {0,-10} | {1,-20} | {2,-20} | {3,-10} | {4,-10} | {5,-5} | {6,-15} |",
+                    book.ISBN, book.BookName, book.AuthorsName, book.BookType,book.Publisher, book.Year, book.Pages);
             }
-            Console.WriteLine(new string('-', 74));
+            Console.WriteLine(new string('-', 115));
         }
-        public static void PrintPeopleToCSVFile(string fileName, List<People> Peoples)
+        public static void PrintPublisher(List<string> publisher)
         {
-            string[] lines = new string[Peoples.Count + 1];
-            lines[0] = String.Format("{0};{1}",
-                "Vardas", "Pinigai");
-            for (int i = 0; i < Peoples.Count; i++)
+            foreach (string publishers in publisher)
             {
-                lines[i + 1] = String.Format("{0};{1}",
-                    Peoples[i].Name, Peoples[i].Money);
+                Console.WriteLine(publishers);
             }
-            File.WriteAllLines(fileName, lines, Encoding.UTF8);
+        }
+        public static void PrintAuthor(List<string> authors)
+        {
+            foreach (string author in authors)
+            {
+                Console.WriteLine(author);
+            }
         }
     }
 }

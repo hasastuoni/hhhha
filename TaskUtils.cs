@@ -4,43 +4,54 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab.Exercises1Sav
+namespace LI1
 {
-    static class TaskUtils
+    class TaskUtils
     {
-    /// <summary>
-    /// Find total amount of money
-    /// </summary>
-    /// <param name="peoples"></param>
-    /// <returns>Total amount of money</returns>
-        public static int CountMoney(List<People> peoples)
+        public static List<string> FindAuthors(List<Book> books)
         {
-            int count = 0;
-            int total = 0;
-            foreach (People people in peoples)
+            List<string> Authors = new List<string>();
+            foreach(Book book in books)
             {
-                count = people.Money / 4;
-                total = total + count;
-            }
-            return total;
-        }
-        /// <summary>
-        /// Find a person which gave the most money from the split
-        /// </summary>
-        /// <param name="peoples"></param>
-        /// <returns>A person...</returns>
-        public static People MostMoney(List<People> peoples)
-        {
-            People most = peoples[0];
-            List<People> people = new List<People>();
-            for (int i = 0; i < peoples.Count; i++)
-            {
-                if (peoples[i].AmountMoney >= most.AmountMoney)
+                string author = book.AuthorsName;
+                if (!Authors.Equals(author))
                 {
-                    most = peoples[i];
+                    Authors.Add(author);
                 }
             }
-            return most;
+            return Authors;
+        }
+        /// <summary>
+        /// Find amount of books which are older than 2 years
+        /// </summary>
+        /// <param name="books"></param>
+        /// <returns>amount of books</returns>
+        public static  int Counter(List<Book> books)
+        {
+            int count = 0;
+            foreach(Book book in books)
+            {
+                int yeardif = 0;
+                yeardif = 2021 - book.Year;
+                if(yeardif >= 2)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+        public static List<string> FindPublishers(List<Book> books)
+        {
+            List<string> Publishers = new List<string>();
+            foreach (Book book in books)
+            {
+                string publishers = book.Publisher;
+                if(!Publishers.Contains(publishers))
+                {
+                    Publishers.Add(publishers);
+                }
+            }
+            return Publishers;
         }
     }
-    }
+}
